@@ -1,0 +1,24 @@
+- name: Create shell script
+  template:
+    src: relaysrv.sh.j2
+    dest: "{{ syncthing_relaysrv_install_path }}/relaysrv.sh"
+    owner: "{{ syncthing_relaysrv_user }}"
+    mode: "0750"
+  notify: Restart service
+
+- name: Create service file
+  become: true
+  template:
+    src: syncthing-relaysrv.service.j2
+    dest: /etc/systemd/system/syncthing-relaysrv.service
+    owner: root
+    group: root
+    mode: "0750"
+  notify: Restart service
+
+- name: Manage systemd service
+  systemd:
+    name: syncthing-relaysrv
+    state: "{{ syncthing_relaysrv_service_state }}"
+    enabled: "{{ syncthing_relaysrv_service_enabled }}"
+    daemon_reload: yes

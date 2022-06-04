@@ -1,0 +1,12 @@
+Description=Syncthing Relay
+After=network.target
+
+[Service]
+User={{ syncthing_relaysrv_user }}
+ExecStart={{ syncthing_relaysrv_install_path }}/relaysrv.sh
+Restart=on-failure
+SuccessExitStatus=3 4
+RestartForceExitStatus=3 4
+
+[Install]
+WantedBy=multi-user.target

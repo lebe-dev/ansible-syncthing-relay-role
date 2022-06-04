@@ -1,0 +1,11 @@
+- import_tasks: install.yml
+  tags:
+    - syncthing-relaysrv
+
+- import_tasks: config.yml
+  tags:
+    - syncthing-relaysrv
+
+- import_tasks: firewalld.yml
+  tags:
+    - syncthing-relaysrv

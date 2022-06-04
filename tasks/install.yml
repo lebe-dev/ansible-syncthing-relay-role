@@ -1,0 +1,47 @@
+- name: Check if app already installed
+  stat:
+    path: "{{ syncthing_relaysrv_install_path }}/strelaysrv"
+  register: relaysrv_installed
+
+- name: Create user
+  user:
+    name: "{{ syncthing_relaysrv_user }}"
+    create_home: yes
+    home: "{{ syncthing_relaysrv_install_path }}"
+    state: present
+  when: not relaysrv_installed.stat.exists
+
+- name: Create dir
+  file:
+    path: "{{ syncthing_relaysrv_install_path }}"
+    state: directory
+    owner: "{{ syncthing_relaysrv_user }}"
+    mode: "0700"
+  when: not relaysrv_installed.stat.exists
+  
+- name: Create keys dir
+  file:
+    path: "{{ syncthing_relaysrv_keys }}"
+    state: directory
+    owner: "{{ syncthing_relaysrv_user }}"
+    mode: "0700"
+  when: not relaysrv_installed.stat.exists
+
+
+- name: Download and unpack
+  unarchive:
+    src: "https://github.com/syncthing/relaysrv/releases/download/v1.18.6/strelaysrv-linux-amd64-v1.18.6.tar.gz"
+    dest: "{{ syncthing_relaysrv_install_path }}"
+    remote_src: yes
+    mode: "0750"
+  when: not relaysrv_installed.stat.exists
+
+- name: Move executable to upper dir
+  become: true
+  copy:
+    src: "{{ syncthing_relaysrv_install_path }}/strelaysrv-linux-amd64-v{{ syncthing_relaysrv_version }}/strelaysrv"
+    dest: "{{ syncthing_relaysrv_install_path }}/"
+    remote_src: yes
+    owner: "{{ syncthing_relaysrv_user }}"
+    mode: "0700"
+  when: not relaysrv_installed.stat.exists

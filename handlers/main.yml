@@ -1,0 +1,4 @@
+- name: Restart service
+  service:
+    name: syncthing-relaysrv
+    state: restarted

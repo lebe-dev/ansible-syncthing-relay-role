@@ -1,0 +1,33 @@
+syncthing_relaysrv_version: 1.18.6
+syncthing_relaysrv_install_path: /opt/syncthing_relaysrv
+syncthing_relaysrv_user: relaysrv
+
+syncthing_relaysrv_use_nat: false
+
+syncthing_relaysrv_service_state: started
+syncthing_relaysrv_service_enabled: yes
+
+# An optional address to advertising as being available on. Allows listening on an unprivileged port with port forwarding from e.g. 443, and be connected to on port 443.
+
+syncthing_relaysrv_ext_address: ""
+# syncthing_relaysrv_ext_address: relay.mysite.com
+
+# Relay won't join global relay pool
+# pool variable will be blank
+syncthing_relaysrv_private_mode: true
+syncthing_relaysrv_global_rate: 10485760
+syncthing_relaysrv_per_session_rate: 212992
+syncthing_relaysrv_keys: "{{ syncthing_relaysrv_install_path }}/keys"
+
+syncthing_relaysrv_provided_by: "GoodBoy"
+syncthing_relaysrv_protocol: tcp
+
+syncthing_relaysrv_listen: ":22067"
+syncthing_relaysrv_status_srv: ":22070"
+
+syncthing_relaysrv_manage_firewalld: false
+syncthing_relaysrv_open_ports:
+  - port: 22067/tcp
+    zone: trusted
+  - port: 22070/tcp
+    zone: trusted

@@ -1,0 +1,5 @@
+#!/bin/bash
+
+cd {{ syncthing_relaysrv_install_path }}
+
+{{ syncthing_relaysrv_install_path }}/strelaysrv -keys {{ syncthing_relaysrv_keys }} -global-rate {{ syncthing_relaysrv_global_rate }} -per-session-rate {{ syncthing_relaysrv_per_session_rate }} -provided-by {{ syncthing_relaysrv_provided_by }} {% if syncthing_relaysrv_private_mode %} -pools ""  {% endif %} -listen "{{ syncthing_relaysrv_listen }}" -status-srv "{{ syncthing_relaysrv_status_srv}}" {% if syncthing_relaysrv_ext_address != "" %} -ext-address {{ syncthing_relaysrv_ext_address }} {% endif %} {% if syncthing_relaysrv_use_nat %}-nat{% endif %}

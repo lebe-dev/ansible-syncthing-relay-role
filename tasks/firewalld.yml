@@ -1,0 +1,8 @@
+- name: Open ports with firewalld
+  firewalld:
+    port: "{{ item.port }}"
+    immediate: yes
+    zone: trusted
+    permanent: yes
+    state: present
+  when: syncthing_relaysrv_manage_firewalld
