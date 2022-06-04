@@ -5,8 +5,26 @@
 ```yaml
 - hosts: localhost
   roles:
-    - tinyops.syncthing-relaye
+    - tinyops.syncthing-relay
 ```
+
+## Configuration
+
+Check variables in `defaults/main.yml`.
+
+### Private relay mode
+
+```yaml
+syncthing_relaysrv_private_mode: true
+```
+
+## Compatibility
+
+Tested with CentOS 7.
+
+## Security
+
+Non-privileged user defined with `syncthing_relaysrv_user`.
 
 ## Documentation
 
